@@ -1,0 +1,127 @@
+name: Test
+
+on:
+  discussion:
+    types: created
+  discussion_comment:
+    types: created
+  # for when first-timer comments on an issue or PR
+  issue_comment:
+    types: created
+  issues:
+    types: [opened, closed]
+  # for when first-timer comments on a PR diff
+  pull_request_review_comment:
+    types: created
+  pull_request_target:
+    types: [opened, closed]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      discussions: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: plbstl/first-timer@main
+        with:
+          issue-opened-msg: |
+            ### Hey @${{ github.actor }} !
+
+            Looks like it's your first time interacting with (Project Name) here on GitHub.
+
+            Welcome and thank you for taking the time to report an issue :heart:.
+
+            Please check our [code of conduct](https://github.com/user/repo/blob/main/CODE_OF_CONDUCT.md) to learn how to interact with the community.
+
+            Don't forget to star :star: the repo.
+
+          pr-opened-msg: |
+            ### Hey @${{ github.actor }} !
+
+            Looks like it's your first time interacting with (Project Name) here on GitHub.
+
+            Welcome and thank you for taking the time to report open a pull request :heart:.
+
+            Please check our [contribution docs](https://github.com/user/repo/blob/main/CONTRIBUTING.md) to learn how to submit changes to this project.
+
+            Don't forget to star :star: the repo.
+
+          discussion-created-msg: |
+            ### Hey @${{ github.actor }} !
+
+            Looks like it's your first time interacting with (Project Name) here on GitHub.
+
+            Welcome and thank you for taking the time to create a discussion :heart:.
+
+            Please check our [discord channel](https://discorg.gg/invite/code) for more ways to interact with this community.
+
+            Don't forget to star :star: the repo.
+
+          issue-commented-on-msg: |
+            ### Hey @${{ github.actor }} !
+
+            Looks like it's your first time interacting with (Project Name) here on GitHub.
+
+            Welcome and thank you for taking the time to comment on this issue :heart:.
+
+            Please check our [code of conduct](https://github.com/user/repo/blob/main/CODE_OF_CONDUCT.md) to learn how to interact with the community.
+
+            Don't forget to star :star: the repo.
+
+          pr-commented-on-msg: |
+            ### Hey @${{ github.actor }} !
+
+            Looks like it's your first time interacting with (Project Name) here on GitHub.
+
+            Welcome and thank you for taking the time to comment on this pull request :heart:.
+
+            Please check our [code of conduct](https://github.com/user/repo/blob/main/CODE_OF_CONDUCT.md) to learn how to interact with the community.
+
+            Don't forget to star :star: the repo.
+
+          pr-diff-commented-on-msg: |
+            ### Hey @${{ github.actor }} !
+
+            Looks like it's your first time interacting with (Project Name) here on GitHub.
+
+            Welcome and thank you for taking the time to review this pull request :heart:.
+
+            Please check our [code of conduct](https://github.com/user/repo/blob/main/CODE_OF_CONDUCT.md) to learn how to interact with the community.
+
+            Don't forget to star :star: the repo.
+
+          discussion-commented-on-msg: |
+            ### Hey @${{ github.actor }} !
+
+            Looks like it's your first time interacting with (Project Name) here on GitHub.
+
+            Welcome and thank you for taking the time to comment on this discussion :heart:.
+
+            Please check our [discord channel](https://discorg.gg/invite/code) for more ways to interact with this community.
+
+            Don't forget to star :star: the repo.
+
+          issue-completed-msg: |
+            ### Hooray @${{ github.actor }} !
+
+            Thank you very much for your contribution :heart:.
+
+          issue-not-planned-msg: |
+            ### Hey @${{ github.actor }} !
+
+            Thank you very much for your contribution :heart:.
+
+          pr-merged-msg: >
+            @all-contributors please add @${{ github.event.pull_request.user.login }} for ${{
+            join(github.event.pull_request.labels.*.name, ', ') }}
+
+          pr-closed-msg: |
+            ### Hey @${{ github.actor }} !
+
+            Thank you very much for your contribution :heart:.
+
+          labels: discus label1, caution
+          issue-labels: issue label issuess
+          pr-labels: pr label1, pr-label2
